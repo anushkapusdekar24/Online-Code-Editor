@@ -1,0 +1,24 @@
+// Initialize ACE editor
+var editor = ace.edit("editor");
+editor.setTheme("ace/theme/monokai");
+editor.session.setMode("ace/mode/html");
+
+// Get preview pane
+var preview = document.getElementById("preview").contentWindow.document;
+
+// Update preview
+function updatePreview() {
+    var html = editor.getValue();
+    preview.open();
+    preview.writeln(html);
+    preview.close();
+}
+
+// Add event listener to run button
+var runBtn = document.getElementById("run-btn");
+runBtn.addEventListener("click", updatePreview);
+
+// Update preview automatically when editor content changes
+editor.getSession().on('change', function() {
+    updatePreview();
+});
